@@ -33,16 +33,22 @@ DATHUC *Nhap()
 void XuatDonThuc(DATHUC A, int idx)
 {
     double temp_HeSo = abs(A.DonThuc[idx].HeSo);
-    if (temp_HeSo == 1 && A.DonThuc[idx].Mu == 1)
-        cout << "x";
-    else if (temp_HeSo != 1 && A.DonThuc[idx].Mu == 1)
-        cout << temp_HeSo << "x";
-    else if (A.DonThuc[idx].Mu == 0)
-        cout << temp_HeSo;
-    else if (temp_HeSo == 1 && A.DonThuc[idx].Mu != 1)
-        cout << "x^" << A.DonThuc[idx].Mu;
-    else if (temp_HeSo != 1 && A.DonThuc[idx].Mu != 0)
-        cout << temp_HeSo << "x^" << A.DonThuc[idx].Mu;
+    switch (A.DonThuc[idx].Mu) {
+        case 0:
+            cout << temp_HeSo;
+            break;
+        case 1:
+            if (temp_HeSo == 1)
+                cout << "x";
+            else
+                cout << temp_HeSo << "x";
+            break;
+        default:
+            if (temp_HeSo == 1)
+                cout << "x^" << A.DonThuc[idx].Mu;
+            else
+                cout << temp_HeSo << "x^" << A.DonThuc[idx].Mu;
+    }
 }
 void XuatDau(double x)
 {
