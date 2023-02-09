@@ -9,10 +9,15 @@ struct queue
     int size = 0, front = MAX - 1, back = MAX - 1;
     bool reverse = false;
 };
-
 bool Is_full(queue A)
 {
     if (A.size == MAX)
+        return 1;
+    return 0;
+}
+bool Is_empty(queue A)
+{
+    if (A.size == 0)
         return 1;
     return 0;
 }
@@ -39,51 +44,38 @@ void Enqueue(queue &A, int a)
         }
     }
 }
-
 void Dequeue(queue &A)
 {
-    if (A.size > 0 && A.front > 0)
+    if (!Is_empty(A))
     {
         A.size--;
-        A.front--;
+        if (A.front > 0)
+            A.front--;
+        else if (A.front == 0)
+        {
+            A.front = MAX - 1;
+            A.reverse = false;
+        }
     }
-    else if (A.size > 0 && A.front == 0)
-    {
-        A.size--;
-        A.front = MAX - 1;
-        A.reverse = false;
-    }
 }
-
-void check(queue A)
-{
-    for (int i = 0; i < MAX; i++)
-        cout << A.a[i] << " ";
-    cout << endl;
-}
-
-bool Is_empty(queue A)
-{
-    if (A.size == 0)
-        return 1;
-    return 0;
-}
-
+// void check(queue A)
+// {
+//     for (int i = 0; i < MAX; i++)
+//         cout << A.a[i] << " ";
+//     cout << endl;
+// }
 int size(queue A)
 {
     return A.size;
 }
-
 int Front(queue A)
 {
     return A.a[A.front];
 }
-
 int Back(queue A)
 {
-    return A.a[A.back+1];
+    return A.a[A.back + 1];
 }
-
 void Duyet(queue A)
 {
     if (A.reverse)
@@ -108,7 +100,8 @@ void Duyet(queue A)
     }
     cout << endl;
 }
-void Duyet_Mang(int *A, int n){
+void Duyet_Mang(int *A, int n)
+{
     for (int i = 0; i < n; i++)
         cout << A[i] << " ";
 }
