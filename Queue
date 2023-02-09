@@ -1,0 +1,152 @@
+#include <bits\stdc++.h>
+using namespace std;
+const int MAX = 1000;
+
+struct Queue
+{
+    int a[MAX] = {};
+    int size = 0, front = MAX - 1, back = MAX - 1;
+    bool reverse = false;
+};
+
+bool Is_full(Queue A)
+{
+    if (A.size == MAX)
+        return 1;
+    return 0;
+}
+void Enqueue(Queue &A, int a)
+{
+    if (!Is_full(A))
+    {
+        A.size++;
+        if (A.back > 0)
+        {
+            A.a[A.back] = a;
+            A.back--;
+        }
+        else if (A.back == 0)
+        {
+            A.a[A.back] = a;
+            A.back = MAX - 1;
+        }
+        else if (A.back == MAX - 1 && A.size > 0)
+        {
+            A.reverse = true;
+            A.a[A.back] = a;
+            A.back--;
+        }
+    }
+}
+
+void Dequeue(Queue &A)
+{
+    if (A.size > 0 && A.front > 0)
+    {
+        A.size--;
+        A.front--;
+    }
+    else if (A.size > 0 && A.front == 0)
+    {
+        A.size--;
+        A.front = MAX - 1;
+        A.reverse = false;
+    }
+}
+
+void check(Queue A){
+    for (int i = 0; i < MAX; i++)
+        cout << A.a[i] << " ";
+    cout << endl;
+}
+
+bool Is_empty(Queue A)
+{
+    if (A.size == 0)
+        return 1;
+    return 0;
+}
+
+int size(Queue A){
+    return A.size;
+}
+
+int Front(Queue A){
+    return A.a[A.front];
+}
+
+void Duyet(Queue A)
+{
+    if (A.reverse)
+    {
+        for (int i = A.back; i < MAX; i++)
+            cout << A.a[i] << " ";
+        for (int i = 0; i < A.front; i++)
+            cout << A.a[i] << " ";
+    }
+    else
+    {
+        if (A.back == MAX - 1 && A.size > 0)
+        {
+            for (int i = 0; i < A.front; i++)
+                cout << A.a[i] << " ";
+        }
+        else
+        {
+            for (int i = A.back + 1; i <= A.front; i++)
+                cout << A.a[i] << " ";
+        }
+    }
+    cout << endl;
+}
+int main()
+{
+    Queue A;
+    int n, x;
+    while (true)
+    {
+        cout << "--------------\n";
+        cout << "1. Enqueue\n";
+        cout << "2. Dequeue\n";
+        cout << "3. size\n";
+        cout << "4. Is_empty\n";
+        cout << "5. Front\n";
+        cout << "6. Duyet\n";
+        cin >> n;
+        if (n == 0)
+            break;
+        switch (n)
+        {
+        case 1:
+            cout << "Nhap x: ";
+            cin >> x;
+            Enqueue(A, x);
+            break;
+        case 2:
+            Dequeue(A);
+            break;
+        case 3:
+            cout << "size: " << size(A) << "\n";
+            break;
+        case 4:
+            if (Is_empty(A))
+                cout << "Empty\n";
+            else 
+                cout << "Not empty\n";
+            break;
+        case 5:
+            cout << "Front: ";
+            if(!Is_empty(A))
+                cout << Front(A);
+            cout << "\n";
+            break;
+        case 6:
+            cout << "Queue: ";
+            Duyet(A);
+            // check(A);
+            cout << endl;
+            break;
+        }
+    }
+    return 0;
+}
