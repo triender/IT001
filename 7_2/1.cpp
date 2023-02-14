@@ -15,6 +15,7 @@ struct SinhVien {
 
 void Nhap(SinhVien *s, int &n){
     cin >> n;
+    cin.ignore();
     for (int i = 0; i < n; i++)
     {
         cin.getline(s[i].MASV, 10);
@@ -23,6 +24,7 @@ void Nhap(SinhVien *s, int &n){
         cin >> s[i].GioiTinh;
         cin.ignore();
         cin >> s[i].DiemToan >> s[i].DiemLy >> s[i].DiemHoa;
+        cin.ignore();
         s[i].DTB = (s[i].DiemToan + s[i].DiemLy + s[i].DiemHoa)/3;
     }
 }
